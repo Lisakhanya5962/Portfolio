@@ -38,13 +38,13 @@
 
         nav h2.logo {
             font-size: 1.5rem;
+            color: #38bdf8;
         }
 
         nav ul {
             list-style: none;
             display: flex;
             gap: 15px;
-            flex-wrap: wrap;
         }
 
         nav a {
@@ -55,6 +55,21 @@
 
         nav a:hover {
             color: #7dd3fc;
+        }
+
+        /* Hamburger icon */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: #38bdf8;
+            transition: all 0.3s;
         }
 
         /* ---------------- Hero & Profile ---------------- */
@@ -217,66 +232,31 @@
             color: white;
         }
 
-        /* ---------------- Dark/Light Mode ---------------- */
-        body.light-mode {
-            background: #f0f0f0;
-            color: #0f172a;
-        }
-
-        body.light-mode nav {
-            background: #e2e8f0;
-        }
-
-        body.light-mode .card,
-        body.light-mode .cert-card,
-        body.light-mode .education-card {
-            background: #ffffff;
-            color: #0f172a;
-        }
-
-        /* ---------------- Footer ---------------- */
-        #footer {
-            background: #020617;
-            color: #ffffff;
-            padding: 30px 20px;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        #footer a {
-            color: #38bdf8;
-            text-decoration: none;
-            margin: 0 5px;
-            transition: color 0.3s;
-        }
-
-        #footer a:hover {
-            color: #22c55e;
-        }
-
-        /* Dark mode footer */
-        body.light-mode #footer {
-            background: #e2e8f0;
-            color: #0f172a;
-        }
-
-        body.light-mode #footer a {
-            color: #38bdf8;
-        }
-
-        body.light-mode #footer a:hover {
-            color: #22c55e;
-        }
-
         /* ---------------- Mobile Responsiveness ---------------- */
         @media (max-width: 768px) {
-            nav {
-                padding: 10px 20px;
+            nav ul {
+                display: none; /* Hide menu */
+                flex-direction: column;
+                width: 100%;
+                background: #020617;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                padding: 10px 0;
+                border-top: 1px solid #38bdf8;
             }
 
-            nav ul {
-                gap: 10px;
-                justify-content: center;
+            nav ul.show {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            nav ul li {
+                text-align: center;
+                padding: 10px 0;
             }
 
             .hero h1 {
@@ -309,15 +289,6 @@
         }
 
         @media (max-width: 480px) {
-            nav ul {
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .hero h1 {
-                font-size: 1.5rem;
-            }
-
             .profile-img {
                 width: 150px;
             }
@@ -341,7 +312,15 @@
 <!-- NAVIGATION -->
 <nav>
     <h2 class="logo">Mr L.Mbusi</h2>
-    <ul>
+    
+    <!-- Hamburger Icon -->
+    <div class="hamburger" id="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <ul id="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -366,6 +345,7 @@
     </div>
 </section>
 
+<!-- Rest of your sections remain unchanged -->
 <!-- ABOUT -->
 <section id="about">
     <h2>About Me</h2>
@@ -453,20 +433,24 @@
         <button type="submit" class="btn">Send Message</button>
     </form>
 
-    <!-- Flash messages -->
-    <div id="flash-container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            {% for category, msg in messages %}
-              <div class="flash {{ category }}">
-                  {{ msg }}
-              </div>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-    </div>
+  
 </section>
 
+
+
+
+
+<!-- JAVASCRIPT FOR HAMBURGER -->
+<script>
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('nav-links');
+
+hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('show');
+});
+</script>
+
+</body>
 <!-- FOOTER -->
 <footer id="footer">
     <div class="footer-container">
@@ -478,6 +462,4 @@
         </div>
     </div>
 </footer>
-
-</body>
 </html>

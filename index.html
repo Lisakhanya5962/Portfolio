@@ -2,13 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lisakhanya Mbusi | Portfolio</title>
 
 <style>
+    /* ---------------- Reset & Base ---------------- */
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; }
-    body { background:#0f172a; color:white; line-height:1.6; }
+    body { background:#0f172a; color:white; line-height:1.6; transition: all 0.3s ease; }
+    a { text-decoration:none; color:#38bdf8; transition: color 0.3s; }
+    a:hover { color:#7dd3fc; }
 
-    /* Navbar */
+    /* ---------------- Navbar ---------------- */
     nav {
         display:flex;
         justify-content:space-between;
@@ -20,35 +24,14 @@
         top:0;
         z-index:1000;
     }
-
     nav h2.logo { font-size:1.5rem; }
-
-    nav ul {
-        list-style:none;
-        display:flex;
-        gap:15px;
-    }
-
-    nav a { text-decoration:none; color:#38bdf8; transition: color 0.3s; }
-    nav a:hover { color:#7dd3fc; }
-
-    /* Hamburger */
-    .hamburger {
-        display:none;
-        flex-direction:column;
-        cursor:pointer;
-        gap:5px;
-    }
-
-    .hamburger div {
-        width:25px; height:3px;
-        background-color:#38bdf8;
-        transition: all 0.3s ease;
-    }
-
-    .hamburger.active div:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    nav ul { list-style:none; display:flex; gap:15px; }
+    nav ul li { text-align:center; }
+    .hamburger { display:none; flex-direction:column; cursor:pointer; gap:5px; }
+    .hamburger div { width:25px; height:3px; background-color:#38bdf8; transition: all 0.3s ease; }
+    .hamburger.active div:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
     .hamburger.active div:nth-child(2) { opacity:0; }
-    .hamburger.active div:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .hamburger.active div:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
 
     /* Mobile menu */
     nav ul.mobile {
@@ -65,28 +48,50 @@
         overflow:hidden;
         transition:max-height 0.4s ease;
     }
+    nav ul.mobile.show { max-height:500px; }
 
-    nav ul.mobile.show {
-        max-height:500px; /* enough to show all links */
-    }
-
-    /* Sections */
-    section { padding:80px 20px; }
-    .profile-container { display:flex; flex-direction:row; align-items:center; gap:30px; flex-wrap:wrap; text-align:left; }
+    /* ---------------- Hero/Profile ---------------- */
+    #profile { padding:100px 50px; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:40px; text-align:left; }
     .profile-img { width:200px; border-radius:50%; border:3px solid #38bdf8; }
     .profile-details h2 { font-size:2rem; margin-bottom:10px; }
-    .btn { margin-top:20px; padding:10px 25px; background:#38bdf8; color:black; text-decoration:none; border-radius:5px; display:inline-block; transition: all 0.3s; }
+    .btn { margin-top:20px; padding:10px 25px; background:#38bdf8; color:black; border-radius:5px; display:inline-block; transition: all 0.3s; }
     .btn:hover { background:#22c55e; color:white; }
 
-    /* Responsive */
+    /* ---------------- Sections ---------------- */
+    section { padding:80px 20px; }
+    .project-grid, .cert-grid, .education-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:20px; }
+    .card, .cert-card, .education-card { background:#020617; padding:20px; border-radius:10px; text-align:center; transition: all 0.3s; display:flex; flex-direction:column; justify-content:space-between; min-height:200px; }
+    .card:hover, .cert-card:hover, .education-card:hover { transform:scale(1.05); background:#1e293b; }
+    .skills span { display:inline-block; background:#38bdf8; color:black; padding:8px 15px; margin:5px; border-radius:20px; font-size:0.9rem; }
+
+    /* ---------------- Contact ---------------- */
+    #contact-form { display:flex; flex-direction:column; gap:10px; max-width:100%; }
+    #contact-form input, #contact-form textarea { padding:10px; border-radius:5px; border:none; width:100%; }
+    #contact-form button { width:fit-content; cursor:pointer; }
+
+    /* ---------------- Flash ---------------- */
+    .flash { padding:10px 15px; border-radius:5px; margin-bottom:10px; font-weight:bold; width:fit-content; }
+    .flash.success { background-color:#38bdf8; color:black; }
+    .flash.error { background-color:#f87171; color:white; }
+
+    /* ---------------- Footer ---------------- */
+    footer { background:#020617; color:white; padding:30px 20px; text-align:center; margin-top:50px; }
+    footer a { color:#38bdf8; margin:0 5px; }
+    footer a:hover { color:#22c55e; }
+
+    /* ---------------- Dark/Light Mode ---------------- */
+    body.light-mode { background:#f0f0f0; color:#0f172a; }
+    body.light-mode nav { background:#e2e8f0; }
+    body.light-mode .card, body.light-mode .cert-card, body.light-mode .education-card { background:#ffffff; color:#0f172a; }
+    body.light-mode footer { background:#e2e8f0; color:#0f172a; }
+    body.light-mode footer a { color:#38bdf8; }
+
+    /* ---------------- Responsive ---------------- */
     @media(max-width:768px){
         .hamburger { display:flex; }
         nav ul { display:none; }
     }
-
-    @media(max-width:480px){
-        .profile-img { width:150px; }
-    }
+    @media(max-width:480px){ .profile-img { width:150px; } }
 </style>
 </head>
 <body>
@@ -95,9 +100,7 @@
 <nav>
     <h2 class="logo">Mr L.Mbusi</h2>
     <div class="hamburger" id="hamburger">
-        <div></div>
-        <div></div>
-        <div></div>
+        <div></div><div></div><div></div>
     </div>
     <ul id="nav-links" class="mobile">
         <li><a href="#home">Home</a></li>
@@ -121,36 +124,21 @@
         </div>
     </div>
 </section>
-    <!-- ABOUT -->
+
+<!-- ABOUT -->
 <section id="about">
     <h2>About Me</h2>
-    <p>
-        I am a Diploma in IT (Software Development) graduate from Nelson Mandela University.
-        I have experience in Django, Flask, Machine Learning and Technical Support at Frontier Hospital.
-        I enjoy creating systems that solve real-world problems.
-    </p>
+    <p>I am a Diploma in IT (Software Development) graduate from Nelson Mandela University. I have experience in Django, Flask, Machine Learning and Technical Support. I enjoy creating systems that solve real-world problems.</p>
 </section>
 
 <!-- PROJECTS -->
 <section id="projects">
     <h2>Projects</h2>
     <div class="project-grid">
-        <div class="card">
-            <h3>Laundry Booking System</h3>
-            <p>Django web app for booking laundry slots with admin management.</p>
-        </div>
-        <div class="card">
-            <h3>Inventory System</h3>
-            <p>Flask-based inventory tracking with role-based access.</p>
-        </div>
-        <div class="card">
-            <h3>Data Collection App</h3>
-            <p>Python app saving data to CSV and generating PDF reports.</p>
-        </div>
-        <div class="card">
-            <h3>Football Match Prediction</h3>
-            <p>Machine learning model predicting match outcomes.</p>
-        </div>
+        <div class="card"><h3>Laundry Booking System</h3><p>Django web app for booking laundry slots with admin management.</p></div>
+        <div class="card"><h3>Inventory System</h3><p>Flask-based inventory tracking with role-based access.</p></div>
+        <div class="card"><h3>Data Collection App</h3><p>Python app saving data to CSV and generating PDF reports.</p></div>
+        <div class="card"><h3>Football Match Prediction</h3><p>Machine learning model predicting match outcomes.</p></div>
     </div>
 </section>
 
@@ -158,12 +146,12 @@
 <section id="skills">
     <h2>Skills</h2>
     <div class="skills">
-        <span>Languages: Python, C#, HTML, CSS, JavaScript</span>
-        <span>Tools: VS Code, Git, Jupyter, MySQL Workbench</span>
-        <span>Frameworks: Django, .NET, Flask</span>
-        <span>Libraries: Pandas, NumPy, Scikit-learn</span>
-        <span>Networking: TCP/IP, LAN/WAN, Wi-Fi Configuration/CISCO Networking Academy</span>
-        <span>Operating Systems: Windows, Linux</span>
+        <span>Python, C#, HTML, CSS, JS</span>
+        <span>VS Code, Git, Jupyter, MySQL Workbench</span>
+        <span>Django, .NET, Flask</span>
+        <span>Pandas, NumPy, Scikit-learn</span>
+        <span>Networking: TCP/IP, LAN/WAN, Wi-Fi</span>
+        <span>Windows, Linux</span>
     </div>
 </section>
 
@@ -180,7 +168,7 @@
             <h3>Cisco Networking Academy</h3>
             <p>CCNA Certification</p>
             <p><strong>2022</strong></p>
-            <a href="CCNA-_Introduction_to_Networks_certificate_s225793032-mandela-ac-za_7f479b59-a639-4ec4-9dc1-a4d61eaf5a8a.pdf" class="btn" target="_blank">View Certificate</a>
+            <a href="CCNA-_Introduction_to_Networks_certificate.pdf" class="btn" target="_blank">View Certificate</a>
         </div>
     </div>
 </section>
@@ -193,7 +181,7 @@
             <img src="idfsQ9rTwa_1768477168281.jpeg" alt="Cisco Logo" class="cert-logo">
             <h3>CCNA - Cisco</h3>
             <p>Certified in Cisco Networking Basics and Routing & Switching</p>
-           <a href="CCNA-_Introduction_to_Networks_certificate_s225793032-mandela-ac-za_7f479b59-a639-4ec4-9dc1-a4d61eaf5a8a.pdf" class="btn" target="_blank">Download CCNA Certificate</a>
+            <a href="CCNA-_Introduction_to_Networks_certificate.pdf" class="btn" target="_blank">Download CCNA Certificate</a>
         </div>
     </div>
 </section>
@@ -207,13 +195,17 @@
         <textarea name="message" placeholder="Your Message" required></textarea>
         <button type="submit" class="btn">Send Message</button>
     </form>
-
-    <!-- Flash messages -->
-   
 </section>
 
-
-
+<!-- FOOTER -->
+<footer>
+    <p>Email: <a href="mailto:lisakhanya5962@gmail.com">lisakhanya5962@gmail.com</a></p>
+    <p>Phone: <a href="tel:+27632502145">+27 63 250 2145</a></p>
+    <div class="social-links">
+        <a href="https://www.facebook.com/" target="_blank">Facebook</a>
+        <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+    </div>
+</footer>
 
 <script>
     const hamburger = document.getElementById('hamburger');
@@ -223,20 +215,20 @@
         hamburger.classList.toggle('active');
         navLinks.classList.toggle('show');
     });
+
+    // Auto-close menu when a link is clicked
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('show');
+        });
+    });
+
+    // Dark/Light mode toggle (optional)
+    function toggleMode() {
+        document.body.classList.toggle('light-mode');
+    }
 </script>
 
 </body>
-<!-- FOOTER -->
-<footer id="footer">
-    <div class="footer-container">
-        <p>Email: <a href="mailto:lisakhanya5962@gmail.com">lisakhanya5962@gmail.com</a></p>
-        <p>Phone: <a href="tel:+1234567890">+27 63 250 2145</a></p>
-        <div class="social-links">
-            <a href="https://www.facebook.com/share/1KJJcx9fcm/?mibextid=wwXIfr" target="_blank">Facebook</a>
-            <a href="https://www.linkedin.com/feed/update/urn:li:activity:7328263569249030144/" target="_blank">LinkedIn</a>
-        </div>
-    </div>
-</footer>
-
-
 </html>

@@ -1,80 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Lisakhanya Mbusi | Portfolio</title>
+<meta charset="UTF-8">
+<title>Lisakhanya Mbusi | Portfolio</title>
 
-    <style>
-        /* ---------------- Reset & Base ---------------- */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { background: #0f172a; color: white; line-height: 1.6; }
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; }
+    body { background:#0f172a; color:white; line-height:1.6; }
 
-        /* ---------------- Navbar ---------------- */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background: #020617;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
+    /* Navbar */
+    nav {
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:15px 30px;
+        background:#020617;
+        position:fixed;
+        width:100%;
+        top:0;
+        z-index:1000;
+    }
 
-        nav h2.logo { font-size: 1.5rem; }
+    nav h2.logo { font-size:1.5rem; }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 15px;
-        }
+    nav ul {
+        list-style:none;
+        display:flex;
+        gap:15px;
+    }
 
-        nav a { text-decoration: none; color: #38bdf8; transition: color 0.3s; }
-        nav a:hover { color: #7dd3fc; }
+    nav a { text-decoration:none; color:#38bdf8; transition: color 0.3s; }
+    nav a:hover { color:#7dd3fc; }
 
-        /* Hamburger */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-            z-index: 1100;
-        }
+    /* Hamburger */
+    .hamburger {
+        display:none;
+        flex-direction:column;
+        cursor:pointer;
+        gap:5px;
+    }
 
-        .hamburger div {
-            width: 25px; height: 3px;
-            background-color: #38bdf8;
-            transition: all 0.3s ease;
-        }
+    .hamburger div {
+        width:25px; height:3px;
+        background-color:#38bdf8;
+        transition: all 0.3s ease;
+    }
 
-        .hamburger.active div:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-        .hamburger.active div:nth-child(2) { opacity: 0; }
-        .hamburger.active div:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+    .hamburger.active div:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active div:nth-child(2) { opacity:0; }
+    .hamburger.active div:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-        /* Mobile nav */
-        nav ul.mobile { display: none; flex-direction: column; gap: 10px; width: 100%; text-align: center; background: #020617; padding: 10px 0; position: absolute; top: 60px; left: 0; }
+    /* Mobile menu */
+    nav ul.mobile {
+        display:flex;
+        flex-direction:column;
+        gap:10px;
+        width:100%;
+        text-align:center;
+        background:#020617;
+        position:absolute;
+        top:60px;
+        left:0;
+        max-height:0;
+        overflow:hidden;
+        transition:max-height 0.4s ease;
+    }
 
-        nav ul.mobile.show { display: flex; }
+    nav ul.mobile.show {
+        max-height:500px; /* enough to show all links */
+    }
 
-        /* ---------------- Sections ---------------- */
-        section { padding: 80px 20px; }
-        .profile-container { display: flex; flex-direction: row; align-items: center; gap: 30px; flex-wrap: wrap; text-align: left; }
-        .profile-img { width: 200px; border-radius: 50%; border: 3px solid #38bdf8; }
-        .profile-details h2 { font-size: 2rem; margin-bottom: 10px; }
-        .btn { margin-top: 20px; padding: 10px 25px; background: #38bdf8; color: black; text-decoration: none; border-radius: 5px; display: inline-block; transition: all 0.3s; }
-        .btn:hover { background: #22c55e; color: white; }
+    /* Sections */
+    section { padding:80px 20px; }
+    .profile-container { display:flex; flex-direction:row; align-items:center; gap:30px; flex-wrap:wrap; text-align:left; }
+    .profile-img { width:200px; border-radius:50%; border:3px solid #38bdf8; }
+    .profile-details h2 { font-size:2rem; margin-bottom:10px; }
+    .btn { margin-top:20px; padding:10px 25px; background:#38bdf8; color:black; text-decoration:none; border-radius:5px; display:inline-block; transition: all 0.3s; }
+    .btn:hover { background:#22c55e; color:white; }
 
-        /* ---------------- Responsive ---------------- */
-        @media (max-width: 768px) {
-            .hamburger { display: flex; }
-            nav ul { display: none; }
-        }
-    </style>
+    /* Responsive */
+    @media(max-width:768px){
+        .hamburger { display:flex; }
+        nav ul { display:none; }
+    }
+
+    @media(max-width:480px){
+        .profile-img { width:150px; }
+    }
+</style>
 </head>
 <body>
 
-<!-- NAVIGATION -->
+<!-- NAVBAR -->
 <nav>
     <h2 class="logo">Mr L.Mbusi</h2>
     <div class="hamburger" id="hamburger">
@@ -104,9 +121,7 @@
         </div>
     </div>
 </section>
-
-<!-- Add other sections (About, Projects, Skills, Education, Certifications, Contact) here -->
-<!-- ABOUT -->
+    <!-- ABOUT -->
 <section id="about">
     <h2>About Me</h2>
     <p>
@@ -193,9 +208,9 @@
         <button type="submit" class="btn">Send Message</button>
     </form>
 
+    <!-- Flash messages -->
    
 </section>
-
 
 
 
@@ -205,8 +220,8 @@
     const navLinks = document.getElementById('nav-links');
 
     hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('show');
         hamburger.classList.toggle('active');
+        navLinks.classList.toggle('show');
     });
 </script>
 
@@ -222,4 +237,6 @@
         </div>
     </div>
 </footer>
+
+
 </html>

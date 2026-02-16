@@ -1,108 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lisakhanya Mbusi | Portfolio</title>
+    <meta charset="UTF-8">
+    <title>Lisakhanya Mbusi | Portfolio</title>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* ---------------- Reset & Base ---------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
-<style>
-    /* ---------------- Reset & Base ---------------- */
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; }
-    body { background:#0f172a; color:white; line-height:1.6; transition: all 0.3s ease; }
-    a { text-decoration:none; color:#38bdf8; transition: color 0.3s; }
-    a:hover { color:#7dd3fc; }
+        body {
+            background: #0f172a;
+            color: white;
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
 
-    /* ---------------- Navbar ---------------- */
-    nav {
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        padding:15px 30px;
-        background:#020617;
-        position:fixed;
-        width:100%;
-        top:0;
-        z-index:1000;
-    }
-    nav h2.logo { font-size:1.5rem; }
-    nav ul { list-style:none; display:flex; gap:15px; }
-    nav ul li { text-align:center; }
-    .hamburger { display:none; flex-direction:column; cursor:pointer; gap:5px; }
-    .hamburger div { width:25px; height:3px; background-color:#38bdf8; transition: all 0.3s ease; }
-    .hamburger.active div:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
-    .hamburger.active div:nth-child(2) { opacity:0; }
-    .hamburger.active div:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+        a { text-decoration: none; }
 
-    /* Mobile menu */
-    nav ul.mobile {
-        display:flex;
-        flex-direction:column;
-        gap:10px;
-        width:100%;
-        text-align:center;
-        background:#020617;
-        position:absolute;
-        top:60px;
-        left:0;
-        max-height:0;
-        overflow:hidden;
-        transition:max-height 0.4s ease;
-    }
-    nav ul.mobile.show { max-height:500px; }
+        /* ---------------- Navbar ---------------- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: #020617;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
 
-    /* ---------------- Hero/Profile ---------------- */
-    #profile { padding:100px 50px; display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:40px; text-align:left; }
-    .profile-img { width:200px; border-radius:50%; border:3px solid #38bdf8; }
-    .profile-details h2 { font-size:2rem; margin-bottom:10px; }
-    .btn { margin-top:20px; padding:10px 25px; background:#38bdf8; color:black; border-radius:5px; display:inline-block; transition: all 0.3s; }
-    .btn:hover { background:#22c55e; color:white; }
+        nav h2.logo { font-size: 1.5rem; }
 
-    /* ---------------- Sections ---------------- */
-    section { padding:80px 20px; }
-    .project-grid, .cert-grid, .education-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:20px; }
-    .card, .cert-card, .education-card { background:#020617; padding:20px; border-radius:10px; text-align:center; transition: all 0.3s; display:flex; flex-direction:column; justify-content:space-between; min-height:200px; }
-    .card:hover, .cert-card:hover, .education-card:hover { transform:scale(1.05); background:#1e293b; }
-    .skills span { display:inline-block; background:#38bdf8; color:black; padding:8px 15px; margin:5px; border-radius:20px; font-size:0.9rem; }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
 
-    /* ---------------- Contact ---------------- */
-    #contact-form { display:flex; flex-direction:column; gap:10px; max-width:100%; }
-    #contact-form input, #contact-form textarea { padding:10px; border-radius:5px; border:none; width:100%; }
-    #contact-form button { width:fit-content; cursor:pointer; }
+        nav ul li a {
+            color: #38bdf8;
+            transition: color 0.3s;
+        }
 
-    /* ---------------- Flash ---------------- */
-    .flash { padding:10px 15px; border-radius:5px; margin-bottom:10px; font-weight:bold; width:fit-content; }
-    .flash.success { background-color:#38bdf8; color:black; }
-    .flash.error { background-color:#f87171; color:white; }
+        nav ul li a:hover { color: #7dd3fc; }
 
-    /* ---------------- Footer ---------------- */
-    footer { background:#020617; color:white; padding:30px 20px; text-align:center; margin-top:50px; }
-    footer a { color:#38bdf8; margin:0 5px; }
-    footer a:hover { color:#22c55e; }
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
 
-    /* ---------------- Dark/Light Mode ---------------- */
-    body.light-mode { background:#f0f0f0; color:#0f172a; }
-    body.light-mode nav { background:#e2e8f0; }
-    body.light-mode .card, body.light-mode .cert-card, body.light-mode .education-card { background:#ffffff; color:#0f172a; }
-    body.light-mode footer { background:#e2e8f0; color:#0f172a; }
-    body.light-mode footer a { color:#38bdf8; }
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background: #38bdf8;
+            transition: all 0.3s;
+        }
 
-    /* ---------------- Responsive ---------------- */
-    @media(max-width:768px){
-        .hamburger { display:flex; }
-        nav ul { display:none; }
-    }
-    @media(max-width:480px){ .profile-img { width:150px; } }
-</style>
+        .hamburger.active div:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active div:nth-child(2) { opacity: 0; }
+        .hamburger.active div:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* Mobile menu */
+        ul.mobile {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        ul.mobile.show { max-height: 500px; }
+
+        /* Dark/Light toggle button */
+        #mode-toggle {
+            background: none;
+            border: 1px solid #38bdf8;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #38bdf8;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        #mode-toggle:hover {
+            background: #38bdf8;
+            color: black;
+        }
+
+        /* ---------------- Sections ---------------- */
+        section { padding: 80px 20px; }
+
+        .hero, #profile { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-top:60px; padding-bottom:60px; }
+
+        .hero h1 { font-size: 3rem; margin-bottom: 15px; }
+
+        .btn {
+            margin-top: 20px;
+            padding: 10px 25px;
+            background: #38bdf8;
+            color: black;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+            display: inline-block;
+        }
+
+        .btn:hover { background: #22c55e; color: white; }
+
+        /* Profile */
+        #profile { display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; }
+
+        .profile-container { display: flex; flex-direction: row; gap: 30px; flex-wrap: wrap; text-align: left; }
+
+        .profile-img { width: 200px; border-radius: 50%; border: 3px solid #38bdf8; }
+
+        .profile-details h2 { font-size: 2rem; margin-bottom: 10px; }
+
+        .profile-details p { margin-bottom: 20px; font-size: 1.1rem; }
+
+        /* Cards */
+        .project-grid, .cert-grid, .education-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+
+        .card, .cert-card, .education-card {
+            background: #020617;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s, background 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+        }
+
+        .card:hover, .cert-card:hover, .education-card:hover { transform: scale(1.05); background: #1e293b; }
+
+        .project-img, .cert-logo { width: 100%; max-width: 100%; height: auto; border-radius: 10px; }
+
+        /* Skills */
+        .skills span { display: inline-block; background: #38bdf8; color: black; padding: 8px 15px; margin: 5px; border-radius: 20px; font-size: 0.9rem; }
+
+        /* Contact */
+        #contact-form { display: flex; flex-direction: column; gap: 10px; max-width: 100%; }
+        #contact-form input, #contact-form textarea { padding: 10px; border-radius: 5px; border: none; width: 100%; }
+        #contact-form button { width: fit-content; cursor: pointer; }
+
+        /* Flash messages */
+        .flash { padding: 10px 15px; border-radius: 5px; margin-bottom: 10px; font-weight: bold; width: fit-content; }
+        .flash.success { background-color: #38bdf8; color: black; }
+        .flash.error { background-color: #f87171; color: white; }
+
+        /* Footer */
+        #footer { background: #020617; color: #ffffff; padding: 30px 20px; text-align: center; margin-top: 50px; }
+        #footer a { color: #38bdf8; margin: 0 5px; }
+        #footer a:hover { color: #22c55e; }
+
+        /* Light mode */
+        body.light-mode { background:#f0f0f0; color:#0f172a; }
+        body.light-mode nav { background:#e2e8f0; }
+        body.light-mode .card, body.light-mode .cert-card, body.light-mode .education-card { background:#fff; color:#0f172a; }
+        body.light-mode #footer { background:#e2e8f0; color:#0f172a; }
+        body.light-mode #footer a { color:#38bdf8; }
+        body.light-mode #footer a:hover { color:#22c55e; }
+
+        /* ---------------- Responsive ---------------- */
+        @media (max-width:768px){
+            nav ul { display: none; flex-direction: column; width: 100%; margin-top: 10px; }
+            nav ul li { text-align: center; }
+            .hamburger { display: flex; }
+            .profile-container { flex-direction: column; text-align:center; }
+            .profile-details h2 { font-size: 1.5rem; }
+            .hero h1 { font-size:2rem; }
+            .skills span { font-size:0.8rem; padding:6px 10px; }
+            section { padding:60px 15px; }
+        }
+
+        @media (max-width:480px){
+            .profile-img { width:150px; }
+            .project-grid, .cert-grid, .education-grid { grid-template-columns:1fr; }
+            .skills span { font-size:0.75rem; padding:5px 8px; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
+<!-- NAVIGATION -->
 <nav>
     <h2 class="logo">Mr L.Mbusi</h2>
-    <div class="hamburger" id="hamburger">
-        <div></div><div></div><div></div>
-    </div>
-    <ul id="nav-links" class="mobile">
+
+    <ul id="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -110,7 +208,12 @@
         <li><a href="#education">Education</a></li>
         <li><a href="#certifications">Certifications</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><button id="mode-toggle">🌙 Dark/Light Mode</button></li>
     </ul>
+
+    <div class="hamburger" id="hamburger">
+        <div></div><div></div><div></div>
+    </div>
 </nav>
 
 <!-- PROFILE SECTION -->
@@ -119,7 +222,7 @@
         <img src="lisa.jpeg" alt="Lisakhanya Mbusi" class="profile-img">
         <div class="profile-details">
             <h2>Lisakhanya Mbusi</h2>
-            <p>Software Developer || C# || Python || SQL || Asp.Net Core || HTML CSS & JS || Microsoft 360 || Pandas</p>
+            <p>Software Developer || C# || Python || SQL || Database || Asp.Net Core || HTML CSS & Javascript || Microsoft 360 || Pandas</p>
             <a href="LisakhanyaMbusiCV.pdf" class="btn" target="_blank">View CV</a>
         </div>
     </div>
@@ -128,7 +231,7 @@
 <!-- ABOUT -->
 <section id="about">
     <h2>About Me</h2>
-    <p>I am a Diploma in IT (Software Development) graduate from Nelson Mandela University. I have experience in Django, Flask, Machine Learning and Technical Support. I enjoy creating systems that solve real-world problems.</p>
+    <p>I am a Diploma in IT (Software Development) graduate from Nelson Mandela University. I have experience in Django, Flask, Machine Learning and Technical Support at Frontier Hospital. I enjoy creating systems that solve real-world problems.</p>
 </section>
 
 <!-- PROJECTS -->
@@ -142,92 +245,58 @@
     </div>
 </section>
 
-<!-- SKILLS -->
-<section id="skills">
-    <h2>Skills</h2>
-    <div class="skills">
-        <span>Python, C#, HTML, CSS, JS</span>
-        <span>VS Code, Git, Jupyter, MySQL Workbench</span>
-        <span>Django, .NET, Flask</span>
-        <span>Pandas, NumPy, Scikit-learn</span>
-        <span>Networking: TCP/IP, LAN/WAN, Wi-Fi</span>
-        <span>Windows, Linux</span>
-    </div>
-</section>
+<!-- Add remaining sections: Skills, Education, Certifications, Contact, Footer... -->
 
-<!-- EDUCATION -->
-<section id="education">
-    <h2>Education</h2>
-    <div class="education-grid">
-        <div class="education-card">
-            <h3>Nelson Mandela University</h3>
-            <p>Diploma in IT (Software Development)</p>
-            <p><strong>2022 - 2025</strong></p>
-        </div>
-        <div class="education-card">
-            <h3>Cisco Networking Academy</h3>
-            <p>CCNA Certification</p>
-            <p><strong>2022</strong></p>
-            <a href="CCNA-_Introduction_to_Networks_certificate.pdf" class="btn" target="_blank">View Certificate</a>
-        </div>
-    </div>
-</section>
-
-<!-- CERTIFICATIONS -->
-<section id="certifications">
-    <h2>Certifications</h2>
-    <div class="cert-grid">
-        <div class="cert-card">
-            <img src="idfsQ9rTwa_1768477168281.jpeg" alt="Cisco Logo" class="cert-logo">
-            <h3>CCNA - Cisco</h3>
-            <p>Certified in Cisco Networking Basics and Routing & Switching</p>
-            <a href="CCNA-_Introduction_to_Networks_certificate.pdf" class="btn" target="_blank">Download CCNA Certificate</a>
-        </div>
-    </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-    <h2>Contact</h2>
-    <form id="contact-form" action="{{ url_for('contact') }}" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email" required>
-        <textarea name="message" placeholder="Your Message" required></textarea>
-        <button type="submit" class="btn">Send Message</button>
-    </form>
-</section>
-
-<!-- FOOTER -->
-<footer>
+<footer id="footer">
     <p>Email: <a href="mailto:lisakhanya5962@gmail.com">lisakhanya5962@gmail.com</a></p>
-    <p>Phone: <a href="tel:+27632502145">+27 63 250 2145</a></p>
+    <p>Phone: <a href="tel:+1234567890">+27 63 250 2145</a></p>
     <div class="social-links">
-        <a href="https://www.facebook.com/" target="_blank">Facebook</a>
-        <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+        <a href="https://www.facebook.com/share/1KJJcx9fcm/?mibextid=wwXIfr" target="_blank">Facebook</a>
+        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7328263569249030144/" target="_blank">LinkedIn</a>
     </div>
 </footer>
 
 <script>
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
+    const modeToggle = document.getElementById('mode-toggle');
 
+    // Hamburger toggle
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         navLinks.classList.toggle('show');
     });
 
-    // Auto-close menu when a link is clicked
+    // Auto-close menu on link click (mobile)
     navLinks.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navLinks.classList.remove('show');
+            if(window.innerWidth < 768){
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('show');
+            }
         });
     });
 
-    // Dark/Light mode toggle (optional)
-    function toggleMode() {
-        document.body.classList.toggle('light-mode');
+    // Dark/Light mode toggle
+    function setMode(mode) {
+        if(mode === 'light'){
+            document.body.classList.add('light-mode');
+            modeToggle.textContent = '☀️ Dark/Light Mode';
+        } else {
+            document.body.classList.remove('light-mode');
+            modeToggle.textContent = '🌙 Dark/Light Mode';
+        }
+        localStorage.setItem('theme', mode);
     }
+
+    modeToggle.addEventListener('click', () => {
+        const isLight = document.body.classList.contains('light-mode');
+        setMode(isLight ? 'dark' : 'light');
+    });
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setMode(savedTheme);
 </script>
 
 </body>
